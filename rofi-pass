@@ -9,7 +9,7 @@ _rofi () {
     rofi -i -width 700 -no-levenshtein-sort "$@"
 }
 
-EDITOR="rofi-sensible-terminal -e ${EDITOR}"
+EDITOR="rofi-sensible-terminal -e ${EDITOR:-vim}"
 URL_field='url'
 USERNAME_field='user'
 AUTOTYPE_field='autotype'
