@@ -13,6 +13,7 @@ EDITOR="rofi-sensible-terminal -e ${EDITOR:-vim}"
 URL_field='url'
 USERNAME_field='user'
 AUTOTYPE_field='autotype'
+no_symbols_genpass='' # change to '-n' for no symbols
 delay=2
 default_do='menu' # menu, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
 auto_enter='false'
@@ -492,15 +493,15 @@ insertPass () {
 
   if [[ "$group" == "No Group" ]]; then
     if [[ $url == http* ]]; then
-      echo -e "PASS\n---\n${USERNAME_field}: $user\n${URL_field}: $url" | PASSWORD_STORE_DIR="${root}" pass insert -m "${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -ni "${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${name}"
+      echo -e "PASS\n---\n${USERNAME_field}: $user\n${URL_field}: $url" | PASSWORD_STORE_DIR="${root}" pass insert -m "${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -i ${no_symbols_genpass} "${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${name}"
     else
-      echo -e "PASS\n---\n${USERNAME_field}: $user" | PASSWORD_STORE_DIR="${root}" pass insert -m "${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -ni "${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${name}"
+      echo -e "PASS\n---\n${USERNAME_field}: $user" | PASSWORD_STORE_DIR="${root}" pass insert -m "${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -i ${no_symbols_genpass}  "${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${name}"
     fi
   else
     if [[ $url == http* ]]; then
-      echo -e "PASS\n---\n${USERNAME_field}: $user\n${URL_field}: $url" | PASSWORD_STORE_DIR="${root}" pass insert -m "${group}/${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -ni "${group}/${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${group}/${name}"
+      echo -e "PASS\n---\n${USERNAME_field}: $user\n${URL_field}: $url" | PASSWORD_STORE_DIR="${root}" pass insert -m "${group}/${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -n ${no_symbols_genpass}  "${group}/${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${group}/${name}"
     else
-      echo -e "PASS\n---\n${USERNAME_field}: $user" | PASSWORD_STORE_DIR="${root}" pass insert -m "${group}/${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -ni "${group}/${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${group}/${name}"
+      echo -e "PASS\n---\n${USERNAME_field}: $user" | PASSWORD_STORE_DIR="${root}" pass insert -m "${group}/${name}" > /dev/null && PASSWORD_STORE_DIR="${root}" pass generate -n ${no_symbols_genpass}  "${group}/${name}" "${password_length}" >/dev/null && PASSWORD_STORE_DIR="${root}" pass edit "${group}/${name}"
     fi
   fi
 }
